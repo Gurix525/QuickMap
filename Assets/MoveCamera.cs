@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class MoveCamera : MonoBehaviour
 {
+    [SerializeField] private Texture2D _holdingCursor;
     [SerializeField] private float _hoverSpeed = 1F;
 
     private Vector3 _originalPosition;
@@ -20,7 +21,7 @@ public class MoveCamera : MonoBehaviour
     private void OnMiddle(InputValue value)
     {
         _isMiddlePressed = value.Get<float>() == 1 ? true : false;
-        Cursor.visible = !_isMiddlePressed;
+        AdjustCursor();
     }
 
     private void OnMouseDelta(InputValue value)
@@ -43,5 +44,13 @@ public class MoveCamera : MonoBehaviour
         if (input != 0F)
             Camera.main.orthographicSize -= Mathf.Sign(input) * 2F;
         Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, 3F, 27F);
+    }
+
+    private void AdjustCursor()
+    {
+        if (_isMiddlePressed)
+            Cursor.SetCursor(_holdingCursor, new(0.5F, 0.5F), CursorMode.Auto);
+        else
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 }
