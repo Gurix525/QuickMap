@@ -7,19 +7,24 @@ using UnityEngine;
 
 public class EraserMenuMode : MenuMode
 {
-    private bool _isEnabled;
-
-    public EraserMenuMode(Texture2D cursor, Menu menu) : base(cursor, menu)
+    public EraserMenuMode(string name, Texture2D cursor, Menu menu) : base(name, cursor, menu)
     {
     }
 
     public override void OnSelect(Vector2 position)
     {
-        _isEnabled = true;
+        IsEnabled = true;
+        _menu.Eraser.gameObject.SetActive(true);
+    }
+
+    public override void OnMousePosition(Vector2 position)
+    {
+        _menu.Eraser.position = position;
     }
 
     public override void OnRelase(Vector2 position)
     {
-        _isEnabled = false;
+        IsEnabled = false;
+        _menu.Eraser.gameObject.SetActive(false);
     }
 }

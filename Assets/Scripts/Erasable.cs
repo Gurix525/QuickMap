@@ -1,18 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Erasable : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private Menu _menu;
+
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.gameObject.name == "Eraser")
+            Destroy(gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerStay(Collider other)
     {
-        
+        if (other.gameObject.name == "Eraser")
+            Destroy(gameObject);
+    }
+
+    private void Awake()
+    {
+        _menu = FindObjectOfType<Menu>();
     }
 }

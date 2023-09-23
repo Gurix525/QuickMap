@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class TextMenuMode : MenuMode
 {
-    public TextMenuMode(Texture2D cursor, Menu menu) : base(cursor, menu)
+    public TextMenuMode(string name, Texture2D cursor, Menu menu) : base(name, cursor, menu)
     {
     }
 }

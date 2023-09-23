@@ -11,7 +11,7 @@ public class LineMenuMode : MenuMode
     private LineRenderer _line;
     private Vector3 _lineStart;
 
-    public LineMenuMode(Texture2D cursor, Menu menu) : base(cursor, menu)
+    public LineMenuMode(string name, Texture2D cursor, Menu menu) : base(name, cursor, menu)
     {
         _linePrefab = Resources.Load<GameObject>("Prefabs/Line");
     }
@@ -32,6 +32,8 @@ public class LineMenuMode : MenuMode
 
     public override void OnRelase(Vector2 position)
     {
+        if (_line != null)
+            _line.GetComponent<LineCollider>().BakeMesh();
         _line = null;
     }
 

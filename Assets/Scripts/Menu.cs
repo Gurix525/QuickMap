@@ -15,6 +15,7 @@ public class Menu : MonoBehaviour
     private Vector2 _worldCursorPosition;
 
     [field: SerializeField] public Transform Lines { get; set; }
+    [field: SerializeField] public Transform Eraser { get; set; }
 
     public MenuMode MenuMode { get; private set; }
 
@@ -22,11 +23,11 @@ public class Menu : MonoBehaviour
     {
         _menuModes = new Dictionary<string, MenuMode>()
         {
-            {"Default", new DefaultMenuMode(_defaultCursor, this) },
-            {"Holding", new HoldingMenuMode(_holdingCursor, this) },
-            {"Line", new LineMenuMode(_lineCursor, this) },
-            {"Text", new TextMenuMode(_textCursor, this) },
-            {"Eraser", new EraserMenuMode(_eraserCursor, this) }
+            {"Default", new DefaultMenuMode("Default", _defaultCursor, this) },
+            {"Holding", new HoldingMenuMode("Holding", _holdingCursor, this) },
+            {"Line", new LineMenuMode("Line", _lineCursor, this) },
+            {"Text", new TextMenuMode("Text", _textCursor, this) },
+            {"Eraser", new EraserMenuMode("Eraser", _eraserCursor, this) }
         };
         MenuMode = _menuModes["Default"];
     }

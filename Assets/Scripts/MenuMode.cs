@@ -9,10 +9,14 @@ public abstract class MenuMode
 {
     protected Menu _menu;
 
+    public bool IsEnabled { get; protected set; }
+
+    public string Name { get; }
     public Texture2D Cursor { get; }
 
-    public MenuMode(Texture2D cursor, Menu menu)
+    public MenuMode(string name, Texture2D cursor, Menu menu)
     {
+        Name = name;
         Cursor = cursor;
         _menu = menu;
     }

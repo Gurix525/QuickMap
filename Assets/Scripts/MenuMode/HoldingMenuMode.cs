@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class HoldingMenuMode : MenuMode
 {
-    public HoldingMenuMode(Texture2D cursor, Menu menu) : base(cursor, menu)
+    public HoldingMenuMode(string name, Texture2D cursor, Menu menu) : base(name, cursor, menu)
     {
     }
 }
