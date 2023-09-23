@@ -25,16 +25,18 @@ public class LineMenuMode : MenuMode
 
     public override void OnSelect(Vector2 position)
     {
+        var roundedPosition = position.Round(0.5F);
         _line = GameObject.Instantiate(_linePrefab, _menu.Lines).GetComponent<LineRenderer>();
-        _line.SetPositions(new Vector3[] { position, position });
-        _lineStart = position;
+        _line.SetPositions(new Vector3[] { roundedPosition, roundedPosition });
+        _lineStart = roundedPosition;
     }
 
     public override void OnMousePosition(Vector2 position)
     {
         if (_line == null)
             return;
-        _line.SetPositions(new Vector3[] { _lineStart, position });
+        var roundedPosition = position.Round(0.5F);
+        _line.SetPositions(new Vector3[] { _lineStart, roundedPosition });
     }
 
     public override void OnRelase(Vector2 position)

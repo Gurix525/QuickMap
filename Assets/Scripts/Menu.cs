@@ -10,12 +10,15 @@ public class Menu : MonoBehaviour
     [SerializeField] private Texture2D _lineCursor;
     [SerializeField] private Texture2D _textCursor;
     [SerializeField] private Texture2D _eraserCursor;
+    [SerializeField] private Texture2D _numberCursor;
 
     private Dictionary<string, MenuMode> _menuModes;
     private Vector2 _worldCursorPosition;
 
+    [field: SerializeField] public Transform Numbers { get; set; }
     [field: SerializeField] public Transform Lines { get; set; }
     [field: SerializeField] public Transform Eraser { get; set; }
+    [field: SerializeField] public Transform Pointer { get; set; }
 
     public MenuMode MenuMode { get; private set; }
 
@@ -27,7 +30,8 @@ public class Menu : MonoBehaviour
             {"Holding", new HoldingMenuMode("Holding", _holdingCursor, this) },
             {"Line", new LineMenuMode("Line", _lineCursor, this) },
             {"Text", new TextMenuMode("Text", _textCursor, this) },
-            {"Eraser", new EraserMenuMode("Eraser", _eraserCursor, this) }
+            {"Eraser", new EraserMenuMode("Eraser", _eraserCursor, this) },
+            {"Number", new NumberMenuMode("Number", _numberCursor, this) },
         };
         MenuMode = _menuModes["Default"];
     }
@@ -60,6 +64,13 @@ public class Menu : MonoBehaviour
         MenuMode = _menuModes["Eraser"];
     }
 
+    private void OnNumber(InputValue value)
+    {
+        MenuMode.Reset();
+        Cursor.SetCursor(_numberCursor, Vector2.zero, CursorMode.Auto);
+        MenuMode = _menuModes["Number"];
+    }
+
     private void OnSelect(InputValue value)
     {
         MenuMode.OnSelect(_worldCursorPosition);
@@ -73,8 +84,7 @@ public class Menu : MonoBehaviour
     private void OnMousePosition(InputValue value)
     {
         var position = value.Get<Vector2>();
-        var worldPosition = Camera.main.ScreenToWorldPoint(position);
-        _worldCursorPosition = new Vector2(Mathf.Round(worldPosition.x), Mathf.Round(worldPosition.y));
+        _worldCursorPosition = Camera.main.ScreenToWorldPoint(position);
         MenuMode.OnMousePosition(_worldCursorPosition);
     }
 
