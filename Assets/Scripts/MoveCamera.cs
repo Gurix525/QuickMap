@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class MoveCamera : MonoBehaviour
 {
+    [SerializeField] private Menu _menu;
     [SerializeField] private Texture2D _holdingCursor;
     [SerializeField] private float _hoverSpeed = 1F;
 
@@ -49,8 +50,8 @@ public class MoveCamera : MonoBehaviour
     private void AdjustCursor()
     {
         if (_isMiddlePressed)
-            Cursor.SetCursor(_holdingCursor, new(0.5F, 0.5F), CursorMode.Auto);
+            Cursor.SetCursor(_holdingCursor, new(_holdingCursor.width / 2F, _holdingCursor.height / 2F), CursorMode.Auto);
         else
-            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+            Cursor.SetCursor(_menu.MenuMode.Cursor, Vector2.zero, CursorMode.Auto);
     }
 }
