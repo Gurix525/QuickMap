@@ -11,6 +11,11 @@ public class EraserMenuMode : MenuMode
     {
     }
 
+    public override void Reset()
+    {
+        OnRelase(Vector2.zero);
+    }
+
     public override void OnSelect(Vector2 position)
     {
         IsEnabled = true;

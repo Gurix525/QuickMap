@@ -16,6 +16,13 @@ public class LineMenuMode : MenuMode
         _linePrefab = Resources.Load<GameObject>("Prefabs/Line");
     }
 
+    public override void Reset()
+    {
+        if (_line != null)
+            GameObject.Destroy(_line.gameObject);
+        _line = null;
+    }
+
     public override void OnSelect(Vector2 position)
     {
         _line = GameObject.Instantiate(_linePrefab, _menu.Lines).GetComponent<LineRenderer>();

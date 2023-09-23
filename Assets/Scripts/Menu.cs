@@ -34,30 +34,30 @@ public class Menu : MonoBehaviour
 
     private void OnDefault(InputValue value)
     {
+        MenuMode.Reset();
         Cursor.SetCursor(_defaultCursor, Vector2.zero, CursorMode.Auto);
         MenuMode = _menuModes["Default"];
-        MenuMode.Reset();
     }
 
     private void OnLine(InputValue value)
     {
+        MenuMode.Reset();
         Cursor.SetCursor(_lineCursor, Vector2.zero, CursorMode.Auto);
         MenuMode = _menuModes["Line"];
-        MenuMode.Reset();
     }
 
     private void OnText(InputValue value)
     {
+        MenuMode.Reset();
         Cursor.SetCursor(_textCursor, Vector2.zero, CursorMode.Auto);
         MenuMode = _menuModes["Text"];
-        MenuMode.Reset();
     }
 
     private void OnEraser(InputValue value)
     {
+        MenuMode.Reset();
         Cursor.SetCursor(_eraserCursor, new(0F, 32F), CursorMode.Auto);
         MenuMode = _menuModes["Eraser"];
-        MenuMode.Reset();
     }
 
     private void OnSelect(InputValue value)

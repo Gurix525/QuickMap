@@ -10,9 +10,4 @@ public class DefaultMenuMode : MenuMode
     public DefaultMenuMode(string name, Texture2D cursor, Menu menu) : base(name, cursor, menu)
     {
     }
-
-    public override void OnSelect(Vector2 position)
-    {
-        Debug.Log(position);
-    }
 }

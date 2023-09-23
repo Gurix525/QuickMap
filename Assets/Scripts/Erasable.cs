@@ -5,8 +5,6 @@ using UnityEngine.EventSystems;
 
 public class Erasable : MonoBehaviour
 {
-    private Menu _menu;
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "Eraser")
@@ -17,10 +15,5 @@ public class Erasable : MonoBehaviour
     {
         if (other.gameObject.name == "Eraser")
             Destroy(gameObject);
-    }
-
-    private void Awake()
-    {
-        _menu = FindObjectOfType<Menu>();
     }
 }
