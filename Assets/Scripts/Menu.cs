@@ -9,6 +9,7 @@ public class Menu : MonoBehaviour
     [SerializeField] private Texture2D _holdingCursor;
     [SerializeField] private Texture2D _lineCursor;
     [SerializeField] private Texture2D _textCursor;
+    [SerializeField] private Texture2D _eraserCursor;
 
     private Dictionary<string, MenuMode> _menuModes;
     private Vector2 _worldCursorPosition;
@@ -24,7 +25,8 @@ public class Menu : MonoBehaviour
             {"Default", new DefaultMenuMode(_defaultCursor, this) },
             {"Holding", new HoldingMenuMode(_holdingCursor, this) },
             {"Line", new LineMenuMode(_lineCursor, this) },
-            {"Text", new TextMenuMode(_textCursor, this) }
+            {"Text", new TextMenuMode(_textCursor, this) },
+            {"Eraser", new EraserMenuMode(_eraserCursor, this) }
         };
         MenuMode = _menuModes["Default"];
     }
@@ -47,6 +49,13 @@ public class Menu : MonoBehaviour
     {
         Cursor.SetCursor(_textCursor, Vector2.zero, CursorMode.Auto);
         MenuMode = _menuModes["Text"];
+        MenuMode.Reset();
+    }
+
+    private void OnEraser(InputValue value)
+    {
+        Cursor.SetCursor(_eraserCursor, new(0F, 32F), CursorMode.Auto);
+        MenuMode = _menuModes["Eraser"];
         MenuMode.Reset();
     }
 

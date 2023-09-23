@@ -33,6 +33,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Eraser",
+                    "type": "Button",
+                    "id": "bf8307df-1970-44b0-b437-bd4434477cfc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "MousePosition",
                     "type": "Value",
                     "id": "bf36b3ff-4336-4d18-a4fe-6d77ffd0a700",
@@ -144,6 +153,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ce8c3faa-88f6-43a1-98a1-4430496f24b2",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Eraser",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

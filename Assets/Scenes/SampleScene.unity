@@ -554,6 +554,7 @@ MonoBehaviour:
   _holdingCursor: {fileID: 2800000, guid: ebf4a4aefdf45a64fb49242dc7b65b0a, type: 3}
   _lineCursor: {fileID: 2800000, guid: bacd8c4b284a81946b226e25b913add3, type: 3}
   _textCursor: {fileID: 2800000, guid: 6ed2bbfb9856fa04596df9cf30ea9af3, type: 3}
+  _eraserCursor: {fileID: 2800000, guid: c68e9c185cef03e458b65b67fb85709b, type: 3}
   <Lines>k__BackingField: {fileID: 1947357691}
 --- !u!114 &1755268521
 MonoBehaviour:
