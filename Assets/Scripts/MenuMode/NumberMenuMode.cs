@@ -24,6 +24,7 @@ public class NumberMenuMode : MenuMode
     {
         var number = GameObject.Instantiate(_numberPrefab, _menu.Numbers);
         number.transform.position = position.Round(0.5F);
+        number.GetComponent<Number>().Initialize();
     }
 
     public override void OnMousePosition(Vector2 position)
