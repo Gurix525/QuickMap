@@ -18,6 +18,7 @@ public class LineMenuMode : MenuMode
 
     public override void Reset()
     {
+        _menu.Pointer.gameObject.SetActive(false);
         if (_line != null)
             GameObject.Destroy(_line.gameObject);
         _line = null;
@@ -33,6 +34,8 @@ public class LineMenuMode : MenuMode
 
     public override void OnMousePosition(Vector2 position)
     {
+        _menu.Pointer.gameObject.SetActive(true);
+        _menu.Pointer.position = position.Round(0.5F);
         if (_line == null)
             return;
         var roundedPosition = position.Round(0.5F);

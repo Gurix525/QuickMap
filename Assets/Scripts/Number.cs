@@ -22,6 +22,6 @@ public class Number : MonoBehaviour
 
     private void OnDestroy()
     {
-        GetComponentInParent<NumbersSource>().RemoveNumber(this);
+        GetComponentInParent<NumbersSource>()?.RemoveNumber(this);
     }
 }
