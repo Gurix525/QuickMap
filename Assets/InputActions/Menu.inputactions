@@ -60,6 +60,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "DoubleClick",
+                    "type": "Button",
+                    "id": "bffea4e0-f296-428c-89fd-9cfda7f56611",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Relase",
                     "type": "Button",
                     "id": "872f925b-b386-440f-8e39-1504f8350e77",
@@ -184,6 +193,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Number",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c38e4e81-477c-4927-95d3-f34e26f083da",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "MultiTap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DoubleClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

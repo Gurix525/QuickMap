@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class MenuMode
 {
@@ -27,18 +22,17 @@ public abstract class MenuMode
     }
 
     public virtual void OnSelect(Vector2 position)
-    {
-    }
+    { }
 
     public virtual void OnMousePosition(Vector2 position)
-    {
-    }
+    { }
 
     public virtual void OnRelase(Vector2 position)
-    {
-    }
+    { }
 
     public virtual void OnRight()
-    {
-    }
+    { }
+
+    public virtual void OnDoubleClick(Vector2 position)
+    { }
 }

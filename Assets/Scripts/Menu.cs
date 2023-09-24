@@ -1,7 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
+using Cursor = UnityEngine.Cursor;
 
 public class Menu : MonoBehaviour
 {
@@ -91,5 +92,10 @@ public class Menu : MonoBehaviour
     private void OnRight(InputValue value)
     {
         MenuMode.OnRight();
+    }
+
+    private void OnDoubleClick(InputValue value)
+    {
+        MenuMode.OnDoubleClick(_worldCursorPosition);
     }
 }

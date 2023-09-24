@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Number : MonoBehaviour
+public class Number : MonoBehaviour, IClickable
 {
     [SerializeField] private TextMeshPro _text;
 
+    private NumbersSource _numbersSource;
+
+
     public int ID { get; private set; }
+
+    public string Text { get; set; }
+
 
     public void ChangeID(int id)
     {
@@ -17,11 +23,28 @@ public class Number : MonoBehaviour
 
     public void Initialize()
     {
-        ChangeID(GetComponentInParent<NumbersSource>().GetNumber(this));
+        ChangeID((_numbersSource = GetComponentInParent<NumbersSource>()).GetNumber(this));
+    }
+
+    public void OnClick()
+    {
+
+    }
+
+    public void OnDoubleClick()
+    {
+        _numbersSource?.Menu.SetActive(false);
+        _numbersSource?.TextWindow.gameObject.SetActive(true);
+        _numbersSource?.Input.Initialize(this);
     }
 
     private void OnDestroy()
     {
         GetComponentInParent<NumbersSource>()?.RemoveNumber(this);
+    }
+
+    public override string ToString()
+    {
+        return ID.ToString();
     }
 }

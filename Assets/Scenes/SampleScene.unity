@@ -276,6 +276,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d36b69e1397662428d888eddcedf27b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <TextWindow>k__BackingField: {fileID: 1623537555}
+  <Menu>k__BackingField: {fileID: 1755268519}
+  <Input>k__BackingField: {fileID: 1294403723}
 --- !u!1 &325812291
 GameObject:
   m_ObjectHideFlags: 0
@@ -1312,6 +1315,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0bb076ada8704841a8375b5e2e89999, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inputField: {fileID: 1294403720}
+  _menu: {fileID: 1755268519}
+  _textWindow: {fileID: 1623537553}
 --- !u!1 &1410437115
 GameObject:
   m_ObjectHideFlags: 0
