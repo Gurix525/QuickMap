@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2908089458185980246}
   - component: {fileID: 2019748096634962169}
-  - component: {fileID: -2903634791577648273}
   - component: {fileID: 8778371213801540176}
   - component: {fileID: 4252917569329229324}
+  - component: {fileID: 7921482887207719170}
   m_Layer: 0
   m_Name: Line
   m_TagString: Untagged
@@ -139,18 +139,6 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!114 &-2903634791577648273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3462949867260333951}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e45512d2701c5a4aaaa69a025f1733b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!64 &8778371213801540176
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -183,5 +171,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed715fea35fb63542ba8157d4e08341e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7921482887207719170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3462949867260333951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f35c067405c3ee54b8968a8250a90148, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

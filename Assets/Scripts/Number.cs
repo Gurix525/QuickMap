@@ -6,6 +6,7 @@ using UnityEngine;
 public class Number : MonoBehaviour, IClickable
 {
     [SerializeField] private TextMeshPro _text;
+    [SerializeField] private SpriteRenderer _spriterenderer;
 
     private NumbersSource _numbersSource;
 
@@ -14,6 +15,18 @@ public class Number : MonoBehaviour, IClickable
 
     public string Text { get; set; }
 
+
+    public void Highlight(bool state)
+    {
+        if (state)
+        {
+            _spriterenderer.material.SetFloat("_HighlightOn", 2F);
+        }
+        else
+        {
+            _spriterenderer.material.SetFloat("_HighlightOn", 0F);
+        }
+    }
 
     public void ChangeID(int id)
     {
@@ -33,6 +46,7 @@ public class Number : MonoBehaviour, IClickable
 
     public void OnDoubleClick()
     {
+        Highlight(true);
         _numbersSource?.Menu.SetActive(false);
         _numbersSource?.TextWindow.gameObject.SetActive(true);
         _numbersSource?.Input.Initialize(this);

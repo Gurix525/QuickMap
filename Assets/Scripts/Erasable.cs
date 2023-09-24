@@ -5,13 +5,17 @@ using UnityEngine.EventSystems;
 
 public class Erasable : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    protected void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Eraser")
-            Destroy(gameObject);
+        Erase(other);
     }
 
-    private void OnTriggerStay(Collider other)
+    protected void OnTriggerStay(Collider other)
+    {
+        Erase(other);
+    }
+
+    protected virtual void Erase(Collider other)
     {
         if (other.gameObject.name == "Eraser")
             Destroy(gameObject);

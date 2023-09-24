@@ -16,26 +16,15 @@ public class Input : MonoBehaviour
     {
         _inputField.text = number.Text;
         _currentNumber = number;
-        _inputField.Select();
+        //_inputField.Select();
         _inputField.ActivateInputField();
     }
 
-    private void OnEnable()
-    {
-        
-        _inputField.onSubmit.AddListener(Submit);
-    }
-
-
-    private void OnDisable()
-    {
-        _inputField.onSubmit.RemoveAllListeners();
-    }
-
-    private void Submit(string input)
+    public void Submit()
     {
         _menu.SetActive(true);
         _textWindow.SetActive(false);
         _currentNumber.Text = _inputField.text;
+        _currentNumber.Highlight(false);
     }
 }
