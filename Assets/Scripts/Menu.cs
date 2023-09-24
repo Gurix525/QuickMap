@@ -18,6 +18,7 @@ public class Menu : MonoBehaviour
 
     [field: SerializeField] public Transform Numbers { get; set; }
     [field: SerializeField] public Transform Lines { get; set; }
+    [field: SerializeField] public Transform Labels { get; set; }
     [field: SerializeField] public Transform Eraser { get; set; }
     [field: SerializeField] public Transform Pointer { get; set; }
 
