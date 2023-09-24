@@ -412,6 +412,53 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &481603181
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 481603183}
+  - component: {fileID: 481603182}
+  m_Layer: 0
+  m_Name: Labels
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &481603182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481603181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24bd4c84df0204b4aa0292dca329d0a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <TextWindow>k__BackingField: {fileID: 1623537555}
+  <Menu>k__BackingField: {fileID: 1755268519}
+  <Input>k__BackingField: {fileID: 1294403723}
+--- !u!4 &481603183
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481603181}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1806,6 +1853,7 @@ MonoBehaviour:
   _numberCursor: {fileID: 2800000, guid: b7b5cf1e9a521524bbdf09a6275d502f, type: 3}
   <Numbers>k__BackingField: {fileID: 262600100}
   <Lines>k__BackingField: {fileID: 1947357691}
+  <Labels>k__BackingField: {fileID: 481603183}
   <Eraser>k__BackingField: {fileID: 325812295}
   <Pointer>k__BackingField: {fileID: 1101246179}
 --- !u!114 &1755268521
@@ -1978,6 +2026,7 @@ SceneRoots:
   - {fileID: 1755268522}
   - {fileID: 1947357691}
   - {fileID: 262600100}
+  - {fileID: 481603183}
   - {fileID: 325812295}
   - {fileID: 1101246179}
   - {fileID: 1536651778}

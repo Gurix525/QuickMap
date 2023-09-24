@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Number : MonoBehaviour, IClickable
+public class Number : MonoBehaviour, IClickable, ITextContainer, IDraggable
 {
     [SerializeField] private TextMeshPro _text;
-    [SerializeField] private SpriteRenderer _spriterenderer;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
 
     private NumbersSource _numbersSource;
 
@@ -20,11 +20,11 @@ public class Number : MonoBehaviour, IClickable
     {
         if (state)
         {
-            _spriterenderer.material.SetFloat("_HighlightOn", 2F);
+            _spriteRenderer.material.SetFloat("_HighlightOn", 2F);
         }
         else
         {
-            _spriterenderer.material.SetFloat("_HighlightOn", 0F);
+            _spriteRenderer.material.SetFloat("_HighlightOn", 0F);
         }
     }
 
@@ -39,10 +39,13 @@ public class Number : MonoBehaviour, IClickable
         ChangeID((_numbersSource = GetComponentInParent<NumbersSource>()).GetNumber(this));
     }
 
+    
+
     public void OnClick()
     {
-
+    
     }
+
 
     public void OnDoubleClick()
     {
@@ -61,4 +64,6 @@ public class Number : MonoBehaviour, IClickable
     {
         return ID.ToString();
     }
+
+    
 }

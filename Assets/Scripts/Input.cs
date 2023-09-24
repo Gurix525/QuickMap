@@ -10,21 +10,40 @@ public class Input : MonoBehaviour
     [SerializeField] private GameObject _menu;
     [SerializeField] private GameObject _textWindow;
 
-    private Number _currentNumber;
+    private ITextContainer _currentContainer;
 
-    public void Initialize(Number number)
+    public void Initialize(ITextContainer textContainer)
     {
-        _inputField.text = number.Text;
-        _currentNumber = number;
+        _inputField.text = textContainer.Text;
+        _currentContainer = textContainer;
         //_inputField.Select();
         _inputField.ActivateInputField();
     }
 
+    private void OnEnable()
+    {
+        _inputField.onValueChanged.AddListener(ChangeContainerText);
+    }
+
+    
+
+    private void OnDisable()
+    {
+        _inputField.onValueChanged.RemoveAllListeners();
+        _currentContainer = null;
+    }
+
     public void Submit()
     {
-        _menu.SetActive(true);
-        _textWindow.SetActive(false);
-        _currentNumber.Text = _inputField.text;
-        _currentNumber.Highlight(false);
+        _currentContainer?.Highlight(false);
+        _menu?.SetActive(true);
+        _textWindow?.SetActive(false);
+    }
+
+    private void ChangeContainerText(string arg0)
+    {
+        if (_currentContainer == null)
+            return;
+        _currentContainer.Text = _inputField.text;
     }
 }
