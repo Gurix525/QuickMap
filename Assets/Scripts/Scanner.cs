@@ -1,5 +1,7 @@
 using System;
 using System.IO;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -56,5 +58,24 @@ public class Scanner : MonoBehaviour
 
     private void CreatePDF(string pngPath, string pdfPath)
     {
+        try
+        {
+
+            Document document = new();
+            PdfWriter.GetInstance(document, new FileStream(pdfPath, FileMode.Create));
+            document.Open();
+            Image image = Image.GetInstance(pngPath);
+            //image.SetAbsolutePosition(0, 0);
+            var scalePercent = (((document.PageSize.Width / image.Width) * 100) - 4);
+            image.ScalePercent(scalePercent);
+            document.Add(image);
+            document.Add(new Chunk("x d działa xddddd"));
+            //document.Add(IElement);
+            document.Close();
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e.Message + "/n" + e.StackTrace);
+        }
     }
 }
