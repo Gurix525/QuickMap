@@ -444,4 +444,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 6375541013132374473}
-  _spriteRenderer: {fileID: 0}
+  _spriteRenderer: {fileID: 4439183293839669075}

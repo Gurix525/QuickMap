@@ -1,0 +1,34 @@
+{
+    "name": "Scanner",
+    "maps": [
+        {
+            "name": "Main",
+            "id": "ad107194-bab8-4234-87d8-76f33168dbba",
+            "actions": [
+                {
+                    "name": "Scan",
+                    "type": "Button",
+                    "id": "d05d241f-d16f-431e-a8ad-b666707b7555",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "54489a30-ef66-4764-97e7-eb6c6f3cd94d",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Scan",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
