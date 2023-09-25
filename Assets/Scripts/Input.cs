@@ -9,6 +9,7 @@ public class Input : MonoBehaviour
     [SerializeField] private TMP_InputField _inputField;
     [SerializeField] private GameObject _menu;
     [SerializeField] private GameObject _textWindow;
+    [SerializeField] private GameObject _scanner;
 
     private ITextContainer _currentContainer;
 
@@ -37,6 +38,7 @@ public class Input : MonoBehaviour
     {
         _currentContainer?.Highlight(false);
         _menu?.SetActive(true);
+        _scanner?.SetActive(true);
         _textWindow?.SetActive(false);
     }
 

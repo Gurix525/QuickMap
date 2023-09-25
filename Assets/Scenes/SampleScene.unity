@@ -362,6 +362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TextWindow>k__BackingField: {fileID: 1623537555}
   <Menu>k__BackingField: {fileID: 1755268519}
+  <Scanner>k__BackingField: {fileID: 1043809075}
   <Input>k__BackingField: {fileID: 1294403723}
 --- !u!1 &325812291
 GameObject:
@@ -527,6 +528,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TextWindow>k__BackingField: {fileID: 1623537555}
   <Menu>k__BackingField: {fileID: 1755268519}
+  <Scanner>k__BackingField: {fileID: 1043809075}
   <Input>k__BackingField: {fileID: 1294403723}
 --- !u!4 &481603183
 Transform:
@@ -827,7 +829,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &808808600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1202,7 +1204,11 @@ MonoBehaviour:
   _renderTexture: {fileID: 8400000, guid: 428bd86f89719a940930593e145d56a3, type: 2}
   _scanCamera: {fileID: 808808602}
   _grid: {fileID: 153265422}
+  _pointer: {fileID: 1101246177}
   _numbersSource: {fileID: 262600101}
+  _lines: {fileID: 1947357690}
+  _numbers: {fileID: 262600099}
+  _labels: {fileID: 481603181}
 --- !u!4 &1043809077
 Transform:
   m_ObjectHideFlags: 0
@@ -1658,6 +1664,7 @@ MonoBehaviour:
   _inputField: {fileID: 1294403720}
   _menu: {fileID: 1755268519}
   _textWindow: {fileID: 1623537553}
+  _scanner: {fileID: 1043809075}
 --- !u!1 &1359992648
 GameObject:
   m_ObjectHideFlags: 0

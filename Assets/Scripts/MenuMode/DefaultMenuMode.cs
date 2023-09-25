@@ -15,7 +15,7 @@ public class DefaultMenuMode : MenuMode
 
     public override void OnSelect(Vector2 position)
     {
-        RaycastHit hit = GetRaycastHit(ref position);
+        RaycastHit hit = GetRaycastHit(ref position, false);
         if (hit.collider != null)
         {
             if (hit.collider.TryGetComponent(out IDraggable draggable))
@@ -45,17 +45,20 @@ public class DefaultMenuMode : MenuMode
 
     public override void OnDoubleClick(Vector2 position)
     {
-        RaycastHit hit = GetRaycastHit(ref position);
+        RaycastHit hit = GetRaycastHit(ref position, false);
         if (hit.collider != null)
         {
             hit.collider.GetComponent<IClickable>()?.OnDoubleClick();
         }
     }
 
-    private static RaycastHit GetRaycastHit(ref Vector2 position)
+    private static RaycastHit GetRaycastHit(ref Vector2 position, bool areTriggersIncluded)
     {
+        bool oldQuariesHitTriggers = Physics.queriesHitTriggers;
+        Physics.queriesHitTriggers = areTriggersIncluded;
         Ray ray = new(new(position.x, position.y, -10F), new(0F, 0F, 1F));
         Physics.Raycast(ray, out RaycastHit hit);
+        Physics.queriesHitTriggers = oldQuariesHitTriggers;
         return hit;
     }
 

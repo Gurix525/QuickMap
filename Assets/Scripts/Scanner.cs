@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 using Font = iTextSharp.text.Font;
@@ -13,20 +14,24 @@ public class Scanner : MonoBehaviour
     [SerializeField] private RenderTexture _renderTexture;
     [SerializeField] private Camera _scanCamera;
     [SerializeField] private GameObject _grid;
+    [SerializeField] private GameObject _pointer;
     [SerializeField] private NumbersSource _numbersSource;
+    [SerializeField] private GameObject _lines;
+    [SerializeField] private GameObject _numbers;
+    [SerializeField] private GameObject _labels;
 
     private Texture2D _destinationTexture;
-    private Texture2D _cutTexture;
 
     private void Awake()
     {
         _destinationTexture = new(4096, 2048, TextureFormat.RGBA32, false);
-        //_cut
     }
 
     private void OnScan()
     {
+
         _grid.SetActive(false);
+        _pointer.SetActive(false);
         _scanCamera.gameObject.SetActive(true);
         RenderPipelineManager.endCameraRendering += PrintToPDF;
     }
@@ -35,10 +40,14 @@ public class Scanner : MonoBehaviour
     {
         if (camera != _scanCamera)
             return;
-        string pngPath = Path.Combine(Application.persistentDataPath, "Render.png");
-        string pdfPath = Path.Combine(Application.persistentDataPath, "Map.pdf");
-        RenderPNG(pngPath);
-        CreatePDF(pngPath, pdfPath);
+        Rectangle rectangle = GetFullRenderRectangle();
+        if (rectangle.Diagonal > 0.5F)
+        {
+            string pngPath = Path.Combine(Application.persistentDataPath, "Render.png");
+            string pdfPath = Path.Combine(Application.persistentDataPath, "Map.pdf");
+            RenderPNG(pngPath);
+            CreatePDF(pngPath, pdfPath);
+        }
         RenderPipelineManager.endCameraRendering -= PrintToPDF;
         _scanCamera.gameObject.SetActive(false);
         _grid.SetActive(true);
@@ -65,9 +74,12 @@ public class Scanner : MonoBehaviour
     private void CreatePDF(string pngPath, string pdfPath)
     {
         Document document = new(PageSize.A4, 31.7F, 31.7F, 31.7F, 31.7F);
-        string fontPath = Path.Combine(Application.streamingAssetsPath, "arimo-font/Arimo-mO92.ttf");
-        BaseFont baseFont = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, true);
-        Font font = new(baseFont, 12F);
+        string regularFontPath = Path.Combine(Application.streamingAssetsPath, "arimo-font/Arimo-mO92.ttf");
+        string boldFontPath = Path.Combine(Application.streamingAssetsPath, "arimo-font/ArimoBold-dVDx.ttf");
+        BaseFont regularBase = BaseFont.CreateFont(regularFontPath, BaseFont.IDENTITY_H, true);
+        BaseFont boldBase = BaseFont.CreateFont(boldFontPath, BaseFont.IDENTITY_H, true);
+        Font regularFont = new(regularBase, 12F);
+        Font boldFont = new(boldBase, 12F);
         try
         {
             PdfWriter.GetInstance(document, new FileStream(pdfPath, FileMode.Create));
@@ -78,10 +90,12 @@ public class Scanner : MonoBehaviour
             image.ScalePercent(scalePercent);
             image.Alignment = Element.ALIGN_CENTER;
             document.Add(image);
-            document.Add(new Paragraph("Jebać disa", font));
-            document.Add(new Paragraph("Jebać disa", font));
-            document.Add(new Paragraph("Jebać disa", font));
-            //document.Add(IElement);
+            var legend = GetLegend(regularFont, boldFont);
+            foreach (var item in legend)
+            {
+                document.Add(item);
+            }
+            File.Delete(pngPath);
         }
         catch (Exception e)
         {
@@ -90,6 +104,75 @@ public class Scanner : MonoBehaviour
         finally
         {
             document.Close();
+        }
+    }
+
+    private Paragraph[] GetLegend(Font regularFont, Font boldFont)
+    {
+        Number[] numbers = _numbersSource.Numbers.ToArray();
+        Paragraph[] legend = new Paragraph[numbers.Length];
+        for (int i = 0; i < numbers.Length; i++)
+        {
+            Chunk start = new($"        {numbers[i].ID}. ", boldFont);
+            Chunk end = new(numbers[i].Text, regularFont);
+            legend[i] = new()
+            {
+                start,
+                end
+            };
+            legend[i].Alignment = Element.ALIGN_JUSTIFIED;
+        }
+        return legend;
+    }
+
+    private Rectangle GetFullRenderRectangle()
+    {
+        Vector2 min = Vector2.zero;
+        Vector2 max = Vector2.zero;
+        foreach (Transform line in _lines.transform)
+        {
+            Bounds bounds = line.GetComponent<MeshCollider>().bounds;
+            min = GetMin(min, bounds.min);
+            max = GetMax(max, bounds.max);
+        }
+        foreach (Transform number in _numbers.transform)
+        {
+            Vector2 position = number.transform.position;
+            min = GetMin(min, position);
+            max = GetMax(max, position);
+        }
+        foreach (Transform label in _labels.transform)
+        {
+            Bounds bounds = label.GetComponentInChildren<TextMeshPro>().bounds;
+            min = GetMin(min, bounds.min);
+            max = GetMax(max, bounds.max);
+        }
+        return new(min, max);
+    }
+
+    private Vector2 GetMin(Vector2 l, Vector2 r)
+    {
+        return new(Mathf.Min(l.x, r.x), Mathf.Min(l.y, r.y));
+    }
+
+    private Vector2 GetMax(Vector2 l, Vector2 r)
+    {
+        return new(Mathf.Max(l.x, r.x), Mathf.Max(l.y, r.y));
+    }
+
+    private struct Rectangle
+    {
+        public Vector2 Min { get; }
+        public Vector2 Max { get; }
+
+        public float Width => Mathf.Abs(Max.x - Min.x);
+        public float Height => Mathf.Abs(Max.y - Min.y);
+        public float Diagonal => Vector2.Distance(Min, Max);
+
+        public Rectangle(Vector2 min, Vector2 max)
+        {
+            Min = min;
+            Max = max;
         }
     }
 }

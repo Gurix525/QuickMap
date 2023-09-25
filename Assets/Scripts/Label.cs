@@ -44,6 +44,7 @@ public class Label : MonoBehaviour, IClickable, ITextContainer, IDraggable
     {
         Highlight(true);
         _labels?.Menu.SetActive(false);
+        _labels?.Scanner.SetActive(false);
         _labels?.TextWindow.gameObject.SetActive(true);
         _labels?.Input.Initialize(this);
     }

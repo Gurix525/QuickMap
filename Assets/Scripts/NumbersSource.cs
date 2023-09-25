@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +6,7 @@ public class NumbersSource : MonoBehaviour
     public List<Number> Numbers { get; } = new();
     [field: SerializeField] public TextWindow TextWindow { get; set; }
     [field: SerializeField] public GameObject Menu { get; set; }
+    [field: SerializeField] public GameObject Scanner { get; set; }
     [field: SerializeField] public Input Input { get; set; }
 
     public int GetNumber(Number number)

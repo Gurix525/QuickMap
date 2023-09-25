@@ -51,6 +51,7 @@ public class Number : MonoBehaviour, IClickable, ITextContainer, IDraggable
     {
         Highlight(true);
         _numbersSource?.Menu.SetActive(false);
+        _numbersSource?.Scanner.SetActive(false);
         _numbersSource?.TextWindow.gameObject.SetActive(true);
         _numbersSource?.Input.Initialize(this);
     }

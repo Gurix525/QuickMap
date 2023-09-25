@@ -6,5 +6,6 @@ public class Labels : MonoBehaviour
 {
     [field: SerializeField] public TextWindow TextWindow { get; set; }
     [field: SerializeField] public GameObject Menu { get; set; }
+    [field: SerializeField] public GameObject Scanner { get; set; }
     [field: SerializeField] public Input Input { get; set; }
 }
