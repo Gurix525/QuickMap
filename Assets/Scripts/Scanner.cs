@@ -4,18 +4,24 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using UnityEngine;
 using UnityEngine.Rendering;
+using Font = iTextSharp.text.Font;
 
 public class Scanner : MonoBehaviour
 {
+    [SerializeField] private float _scaleModifier = -1.5F;
+
     [SerializeField] private RenderTexture _renderTexture;
     [SerializeField] private Camera _scanCamera;
     [SerializeField] private GameObject _grid;
+    [SerializeField] private NumbersSource _numbersSource;
 
     private Texture2D _destinationTexture;
+    private Texture2D _cutTexture;
 
     private void Awake()
     {
-        _destinationTexture = new(4096, 4096, TextureFormat.RGBA32, false);
+        _destinationTexture = new(4096, 2048, TextureFormat.RGBA32, false);
+        //_cut
     }
 
     private void OnScan()
@@ -40,7 +46,7 @@ public class Scanner : MonoBehaviour
 
     private void RenderPNG(string pngPath)
     {
-        Rect rect = new(new(0F, 0F), new(4096F, 4096F));
+        Rect rect = new(new(0F, 0F), new(4096F, 2048F));
         _destinationTexture.ReadPixels(rect, 0, 0);
         Color[] colors = _destinationTexture.GetPixels();
         for (int i = 0; i < colors.Length; i++)
@@ -58,24 +64,32 @@ public class Scanner : MonoBehaviour
 
     private void CreatePDF(string pngPath, string pdfPath)
     {
+        Document document = new(PageSize.A4, 31.7F, 31.7F, 31.7F, 31.7F);
+        string fontPath = Path.Combine(Application.streamingAssetsPath, "arimo-font/Arimo-mO92.ttf");
+        BaseFont baseFont = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, true);
+        Font font = new(baseFont, 12F);
         try
         {
-
-            Document document = new();
             PdfWriter.GetInstance(document, new FileStream(pdfPath, FileMode.Create));
             document.Open();
             Image image = Image.GetInstance(pngPath);
             //image.SetAbsolutePosition(0, 0);
-            var scalePercent = (((document.PageSize.Width / image.Width) * 100) - 4);
+            float scalePercent = document.PageSize.Width / image.Width * 100F + _scaleModifier;
             image.ScalePercent(scalePercent);
+            image.Alignment = Element.ALIGN_CENTER;
             document.Add(image);
-            document.Add(new Chunk("x d działa xddddd"));
+            document.Add(new Paragraph("Jebać disa", font));
+            document.Add(new Paragraph("Jebać disa", font));
+            document.Add(new Paragraph("Jebać disa", font));
             //document.Add(IElement);
-            document.Close();
         }
         catch (Exception e)
         {
             Debug.LogError(e.Message + "/n" + e.StackTrace);
+        }
+        finally
+        {
+            document.Close();
         }
     }
 }
