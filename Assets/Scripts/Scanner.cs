@@ -21,6 +21,7 @@ public class Scanner : MonoBehaviour
     [SerializeField] private GameObject _labels;
 
     private Texture2D _destinationTexture;
+    private Rectangle _rectangle;
 
     private void Awake()
     {
@@ -29,7 +30,11 @@ public class Scanner : MonoBehaviour
 
     private void OnScan()
     {
-
+        _rectangle = GetFullRenderRectangle();
+        if (_rectangle.Diagonal < 0.5F)
+            return;
+        _scanCamera.orthographicSize = _rectangle.Height / 2F + 1F;
+        _scanCamera.transform.position = new(_rectangle.Center.x, _rectangle.Center.y, -10F);
         _grid.SetActive(false);
         _pointer.SetActive(false);
         _scanCamera.gameObject.SetActive(true);
@@ -40,14 +45,10 @@ public class Scanner : MonoBehaviour
     {
         if (camera != _scanCamera)
             return;
-        Rectangle rectangle = GetFullRenderRectangle();
-        if (rectangle.Diagonal > 0.5F)
-        {
-            string pngPath = Path.Combine(Application.persistentDataPath, "Render.png");
-            string pdfPath = Path.Combine(Application.persistentDataPath, "Map.pdf");
-            RenderPNG(pngPath);
-            CreatePDF(pngPath, pdfPath);
-        }
+        string pngPath = Path.Combine(Application.persistentDataPath, "Render.png");
+        string pdfPath = Path.Combine(Application.persistentDataPath, "Map.pdf");
+        RenderPNG(pngPath);
+        CreatePDF(pngPath, pdfPath);
         RenderPipelineManager.endCameraRendering -= PrintToPDF;
         _scanCamera.gameObject.SetActive(false);
         _grid.SetActive(true);
@@ -78,8 +79,8 @@ public class Scanner : MonoBehaviour
         string boldFontPath = Path.Combine(Application.streamingAssetsPath, "arimo-font/ArimoBold-dVDx.ttf");
         BaseFont regularBase = BaseFont.CreateFont(regularFontPath, BaseFont.IDENTITY_H, true);
         BaseFont boldBase = BaseFont.CreateFont(boldFontPath, BaseFont.IDENTITY_H, true);
-        Font regularFont = new(regularBase, 12F);
-        Font boldFont = new(boldBase, 12F);
+        Font regularFont = new(regularBase, 11F);
+        Font boldFont = new(boldBase, 11F);
         try
         {
             PdfWriter.GetInstance(document, new FileStream(pdfPath, FileMode.Create));
@@ -144,8 +145,8 @@ public class Scanner : MonoBehaviour
         foreach (Transform label in _labels.transform)
         {
             Bounds bounds = label.GetComponentInChildren<TextMeshPro>().bounds;
-            min = GetMin(min, bounds.min);
-            max = GetMax(max, bounds.max);
+            min = GetMin(min, bounds.min + label.position);
+            max = GetMax(max, bounds.max + label.position);
         }
         return new(min, max);
     }
@@ -168,6 +169,7 @@ public class Scanner : MonoBehaviour
         public float Width => Mathf.Abs(Max.x - Min.x);
         public float Height => Mathf.Abs(Max.y - Min.y);
         public float Diagonal => Vector2.Distance(Min, Max);
+        public Vector2 Center => new((Max.x + Min.x) / 2F, (Max.y + Min.y) / 2F);
 
         public Rectangle(Vector2 min, Vector2 max)
         {

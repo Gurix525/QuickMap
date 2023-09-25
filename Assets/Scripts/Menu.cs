@@ -6,6 +6,7 @@ using Cursor = UnityEngine.Cursor;
 
 public class Menu : MonoBehaviour
 {
+    [SerializeField] private Saves _saves;
     [SerializeField] private Texture2D _defaultCursor;
     [SerializeField] private Texture2D _holdingCursor;
     [SerializeField] private Texture2D _lineCursor;
@@ -98,5 +99,15 @@ public class Menu : MonoBehaviour
     private void OnDoubleClick(InputValue value)
     {
         MenuMode.OnDoubleClick(_worldCursorPosition);
+    }
+
+    private void OnSave(InputValue value)
+    {
+        _saves.Save();
+    }
+
+    private void OnLoad(InputValue value)
+    {
+        _saves.Open();
     }
 }
