@@ -103,11 +103,11 @@ public class Menu : MonoBehaviour
 
     private void OnSave(InputValue value)
     {
-        _saves.Save();
+        _saves.CreateSave();
     }
 
     private void OnLoad(InputValue value)
     {
-        _saves.Open();
+        _saves.Load();
     }
 }
