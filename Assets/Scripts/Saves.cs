@@ -17,6 +17,11 @@ public class Saves : MonoBehaviour
         _savesPath = Path.Combine(Application.persistentDataPath, "Saves");
     }
 
+    private void Start()
+    {
+        Load();
+    }
+
     public void CreateSave()
     {
         string filePath = Path.Combine(_savesPath, "save.txt");
@@ -36,8 +41,10 @@ public class Saves : MonoBehaviour
     {
         if (!Directory.Exists(_savesPath))
             return;
-        ClearScene();
         string filePath = Path.Combine(_savesPath, "save.txt");
+        if (!File.Exists(filePath))
+            return;
+        ClearScene();
         string json = "";
         Save save = null;
         try

@@ -47,8 +47,12 @@ public class Scanner : MonoBehaviour
             return;
         string pngPath = Path.Combine(Application.persistentDataPath, "Render.png");
         string pdfPath = Path.Combine(Application.persistentDataPath, "Map.pdf");
-        RenderPNG(pngPath);
-        CreatePDF(pngPath, pdfPath);
+        try
+        {
+            RenderPNG(pngPath);
+            CreatePDF(pngPath, pdfPath);
+        }
+        catch { }
         RenderPipelineManager.endCameraRendering -= PrintToPDF;
         _scanCamera.gameObject.SetActive(false);
         _grid.SetActive(true);
@@ -69,20 +73,25 @@ public class Scanner : MonoBehaviour
         }
         _destinationTexture.SetPixels(colors);
         _destinationTexture.Apply();
-        File.WriteAllBytes(pngPath, _destinationTexture.EncodeToPNG());
+        try
+        {
+            File.WriteAllBytes(pngPath, _destinationTexture.EncodeToPNG());
+        }
+        catch { }
     }
 
     private void CreatePDF(string pngPath, string pdfPath)
     {
         Document document = new(PageSize.A4, 31.7F, 31.7F, 31.7F, 31.7F);
-        string regularFontPath = Path.Combine(Application.streamingAssetsPath, "arimo-font/Arimo-mO92.ttf");
-        string boldFontPath = Path.Combine(Application.streamingAssetsPath, "arimo-font/ArimoBold-dVDx.ttf");
-        BaseFont regularBase = BaseFont.CreateFont(regularFontPath, BaseFont.IDENTITY_H, true);
-        BaseFont boldBase = BaseFont.CreateFont(boldFontPath, BaseFont.IDENTITY_H, true);
-        Font regularFont = new(regularBase, 11F);
-        Font boldFont = new(boldBase, 11F);
         try
         {
+            string regularFontPath = Path.Combine(Application.streamingAssetsPath, "arimo-font/Arimo-mO92.ttf");
+            string boldFontPath = Path.Combine(Application.streamingAssetsPath, "arimo-font/ArimoBold-dVDx.ttf");
+            BaseFont regularBase = BaseFont.CreateFont(regularFontPath, BaseFont.IDENTITY_H, true);
+            BaseFont boldBase = BaseFont.CreateFont(boldFontPath, BaseFont.IDENTITY_H, true);
+            Font regularFont = new(regularBase, 11F);
+            Font boldFont = new(boldBase, 11F);
+
             PdfWriter.GetInstance(document, new FileStream(pdfPath, FileMode.Create));
             document.Open();
             Image image = Image.GetInstance(pngPath);
@@ -128,8 +137,8 @@ public class Scanner : MonoBehaviour
 
     private Rectangle GetFullRenderRectangle()
     {
-        Vector2 min = Vector2.zero;
-        Vector2 max = Vector2.zero;
+        Vector2 min = Vector2.positiveInfinity;
+        Vector2 max = Vector2.negativeInfinity;
         foreach (Transform line in _lines.transform)
         {
             Bounds bounds = line.GetComponent<MeshCollider>().bounds;
