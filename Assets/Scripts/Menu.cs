@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using Cursor = UnityEngine.Cursor;
@@ -76,6 +77,8 @@ public class Menu : MonoBehaviour
 
     private void OnSelect(InputValue value)
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
         MenuMode.OnSelect(_worldCursorPosition);
     }
 
@@ -93,11 +96,15 @@ public class Menu : MonoBehaviour
 
     private void OnRight(InputValue value)
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
         MenuMode.OnRight();
     }
 
     private void OnDoubleClick(InputValue value)
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
         MenuMode.OnDoubleClick(_worldCursorPosition);
     }
 
